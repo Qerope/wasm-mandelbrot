@@ -16,6 +16,7 @@ pub fn render(width: u32, height: u32, cx: f64, cy: f64, scale: f64, max_iter: u
                 i += 1;
             }
             let v = if i == max_iter { 0 } else { (i * 255 / max_iter) as u8 };
+            let v = if i == max_iter { 0 } else { (255.0 * (i as f64 / max_iter as f64).sqrt()) as u8 };
             let idx = ((py * width + px) * 4) as usize;
             out[idx] = v;
             out[idx + 1] = v;
