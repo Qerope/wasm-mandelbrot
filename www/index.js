@@ -17,7 +17,7 @@ canvas.addEventListener('click', (e) => {
     const ny = e.clientY / canvas.clientHeight - 0.5;
     const aspect = canvas.height / canvas.width;
     view.cx += nx * view.scale;
-    view.cy += ny * view.scale;
+    view.cy += ny * view.scale * aspect;
     view.scale *= e.shiftKey ? 2 : 0.5;
     draw();
 });
