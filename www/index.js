@@ -7,7 +7,8 @@ let view = { cx: -0.5, cy: 0.0, scale: 3.0 };
 function draw() {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    const pixels = render(canvas.width, canvas.height, view.cx, view.cy, view.scale, 200);
+    const iters = Math.min(2000, Math.floor(200 + 60 * Math.log2(3.0 / view.scale)));
+    const pixels = render(canvas.width, canvas.height, view.cx, view.cy, view.scale, iters);
     const img = new ImageData(new Uint8ClampedArray(pixels), canvas.width, canvas.height);
     ctx.putImageData(img, 0, 0);
 }
