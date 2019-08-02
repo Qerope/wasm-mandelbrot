@@ -9,11 +9,14 @@ const useJs = new URLSearchParams(location.search).get('js') === '1';
 function draw() {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
+    const t0 = performance.now();
     const iters = Math.min(2000, Math.floor(200 + 60 * Math.log2(3.0 / view.scale)));
     const fn = useJs ? renderJs : render;
     const pixels = fn(canvas.width, canvas.height, view.cx, view.cy, view.scale, iters);
     const img = new ImageData(new Uint8ClampedArray(pixels), canvas.width, canvas.height);
     ctx.putImageData(img, 0, 0);
+    document.getElementById('stats').textContent =
+        (useJs ? 'js' : 'wasm') + ' ' + (performance.now() - t0).toFixed(0) + ' ms, ' + iters + ' iterations';
 }
 
 canvas.addEventListener('click', (e) => {
